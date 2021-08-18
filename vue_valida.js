@@ -2,7 +2,7 @@
 <script type="text/javascript" src="resources/common/js/vuelidate.min.js"></script>
 
 https://www.jsdelivr.com/
-尋找打包js,打開後右鍵另存新檔
+//尋找打包js,打開後右鍵另存新檔
 
 $.ajaxSetup({cache: false , async:false});
 
@@ -69,8 +69,7 @@ const vm = new Vue({
         			facebookID: this.userfacebookID,
         			id: this.getUrlParameter("id")
         	};
-        	
-        	*/
+   
         	$("body").loadingModal('hide');
         },
 	}
