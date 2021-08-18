@@ -7,11 +7,9 @@ const userinfo = {
 };
 			
 $.post('<p:formGuard url="/rest/ts20From/addTs20Register"/>', userinfo)
-	.done(resp => {
-    
+	.done(resp => {    
 	})
-	.fail(err => {
-    
+	.fail(err => {    
 	})
 	.always(() => {
 		alert( "finished" );
