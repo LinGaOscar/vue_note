@@ -2,7 +2,7 @@
 <script type="text/javascript" src="resources/common/js/vuelidate.min.js"></script>
 
 https://www.jsdelivr.com/
-//尋找打包js,打開後右鍵另存新檔
+尋找打包js,打開後右鍵另存新檔
 
 $.ajaxSetup({cache: false , async:false});
 
@@ -35,8 +35,15 @@ const vm = new Vue({
 	methods: {
         //submit form
         submitForm(){
-        	//error data respond
-        	
+        	//form error data check
+        	if(!this.userchecked){
+        		alert('請勾選我已詳閱個人資料搜集、處理、利用聲明告知！');
+				return
+        	}
+        	if (!this.captcha.state) {
+    			alert("請輸入驗證碼");
+				return;
+        	}
         	//$touch Sets the $dirty flag of the model and all its children to true recursively.
         	this.$v.$touch();
         	if (this.$v.$invalid) {
@@ -60,16 +67,30 @@ const vm = new Vue({
                 }
                 return;
             }
-        	
+        	//Register new user
         	$("body").loadingModal('show');
         	
         	const userinfo = {
-        			name: this.username,
-        			phone: this.userphone,
-        			facebookID: this.userfacebookID,
-        			id: this.getUrlParameter("id")
+        			custName: this.username,
+        			custPhone: this.userphone,
+        			custId: this.userfacebookID,
+        			id: this.getUrlParameter("id"),
+        			programId: this.programId,
+        			type: "addPreorder_tsp" //新增一筆資料
         	};
-   
+        	
+        	$.post('<p:formGuard url="/rest/ts20From/addTs20Register"/>', userinfo)
+            .done(resp => {
+            	if (resp.statusCode == '0000'){
+                	alert('此門號已完成優惠券領取登記\n優惠券將由系統於填寫資料完成後1週內派送\n請使用所登記之門號登入台灣之星官網或APP查看領取優惠(非台灣之星用戶也可免費註冊)');
+                	document.location.reload();  
+            	}
+            })
+            .fail(resp => {
+            	alert('系統忙碌中，請稍後再試');
+            	document.location="https://www.tstartel.com/CWS";
+            });
+        	
         	$("body").loadingModal('hide');
         },
 	}

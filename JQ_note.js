@@ -1,15 +1,30 @@
+//check APP or WEB
+
+let useragent = navigator.userAgent;
+let ua = useragent.toLowerCase();
+
+if( useragent.indexOf('iphone') != -1 || useragent.indexOf('ipod') != -1 || useragent.indexOf('android') != -1) {
+//phone
+}
+else if( useragent.indexOf('ipad') != -1 ) {
+//pad
+}
+else{
+//PC
+}
+
 //post done fail always
 const userinfo = {
     custName: this.username,
     custPhone: this.userphone,
-    custId: this.userfacebookID,
-    id: this.getUrlParameter("id")
 };
 			
 $.post('<p:formGuard url="/rest/ts20From/addTs20Register"/>', userinfo)
-	.done(resp => {    
+	.done(resp => {
+    
 	})
-	.fail(err => {    
+	.fail(err => {
+    
 	})
 	.always(() => {
 		alert( "finished" );
@@ -30,13 +45,14 @@ function sendGoogleAna(btnLabel) {
 }
 
 //連結是否開新視窗  new:是  self:否
-function showNewWindow(url_target,url){
-	if(url_target == 'self'){
-		location.href = url;
-	}else{
-		window.open(url);
-	}
-}
+
+	location.href = url;
+	//document.location="https://www.tstartel.com/CWS";
+	window.open(url);
+	window.history.back();//上一頁
+	document.location.reload();  //重整
+
+URL = document.location.toString();//現在網址
 
 //IP卡控流程
 let cta_visit =null
